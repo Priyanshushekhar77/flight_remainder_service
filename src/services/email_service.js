@@ -29,6 +29,17 @@ const pendingEmails = async(timestamp) => {
 
     }
 }
+const updateTicket = async(ticketId,data) => {
+    try{
+        const response = await fetch.updateTicket(data);
+        return response;
+
+    }
+    catch(error){
+        console.log(error)
+
+    }
+}
 
 const createNotification = async(data) => {
     try{
@@ -48,5 +59,6 @@ module.exports = {
     mailSender,
     pendingEmails,
     createNotification,
+    updateTicket,
 
 }

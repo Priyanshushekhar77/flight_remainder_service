@@ -1,5 +1,5 @@
 /
-## REMAINDER SERVICE
+## REMAINDER SERVICE(Task to send emails and  notifications)
   -> A user will get email after booking a ticket 
   -> Also a user will get email before 24 hour of boarding pass.
 ## TABLE

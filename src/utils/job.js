@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const emailService = require('../services/email_service');
+const sender = require('../config/emailConfig');
 
 
 
@@ -7,13 +8,23 @@ const setUpDone = () => {
     cron.schedule('*/2 * * * *',async () => {
         const response = await emailService.pendingEmails();
         response.forEach((email) => {
-            emailService.mailSender("skillindia778@gmail.com",
-            email.recepientEmail,
-            email.subject,
-            email.content);
-        })
-        console.log(response)
+            sender.sendMail({
+           
+            to:email.recepientEmail,
+            subject: email.subject,
+            text:email.content
+        },async(err,data) => {
+            if(err){
+                console.log(err);
+            }else{
+                console.log(data);
+                await emailService.updateTicket(email.id,{status:"SUCCESS"});
+            }
+        });
+        
     });
+    console.log(response);
+});
 }
 
 module.exports=setUpDone;
