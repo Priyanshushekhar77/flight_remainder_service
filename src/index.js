@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const{PORT} = require('./config/serverConfig')
 const express = require('express');
 // const Apiroutes = require('./routes/index');
-
+ const {mailSender} = require('./services/email_service');
 
 
 const startServer = async() => {
@@ -16,6 +16,7 @@ const startServer = async() => {
 
     app.listen(PORT,async() => {
         console.log(`server start at port:${PORT}`);
+       
     });
 }
 
