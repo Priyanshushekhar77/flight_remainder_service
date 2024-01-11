@@ -21,7 +21,6 @@ const setUpDone = () => {
                 await emailService.updateTicket(email.id,{status:"SUCCESS"});
             }
         });
-        
     });
     console.log(response);
 });

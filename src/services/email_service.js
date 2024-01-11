@@ -21,7 +21,7 @@ const mailSender = async(mailFrom, mailTo, mailSubject, mailBody)=>{
 const pendingEmails = async(timestamp) => {
     try{
          
-         const response = await fetch.getAllTicket();
+         const response = await fetch.getAllTicket({status:"PENDING"});
          return response;
     }
     catch(error){
@@ -31,7 +31,7 @@ const pendingEmails = async(timestamp) => {
 }
 const updateTicket = async(ticketId,data) => {
     try{
-        const response = await fetch.updateTicket(data);
+        const response = await fetch.updateTicket(ticketId,data);
         return response;
 
     }
@@ -53,6 +53,22 @@ const createNotification = async(data) => {
 
     }
 }
+
+const subscribeEvents = async(payload) => {
+    let service = payload.service;
+    let data = payload.data;
+    switch(service){
+        case 'BOOK_TICKET':
+           await createNotification(data);
+           break;
+        case 'SEND_MAIL':
+            await mailSender(data);
+            break;
+        default:
+            console.log('No any valid events occured');
+            break;
+    }
+}
  
 
 module.exports = {
@@ -60,5 +76,6 @@ module.exports = {
     pendingEmails,
     createNotification,
     updateTicket,
+    subscribeEvents,
 
 }
